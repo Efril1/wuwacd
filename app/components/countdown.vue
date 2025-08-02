@@ -176,7 +176,4 @@ onBeforeUnmount(() => {
     font-size: 2.5rem;
   }
 }
-:deep(*) {
-  color: white;
-}
 </style>
