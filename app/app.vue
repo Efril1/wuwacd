@@ -1,9 +1,4 @@
 <script setup lang="ts">
-const colorMode = useColorMode()
-onMounted(() => {
-  colorMode.preference = 'dark'
-  colorMode.value = 'dark'
-})
 const targetDate = new Date(Date.UTC(2025, 8, 17, 3, 0, 0))
 </script>
 
@@ -21,8 +16,9 @@ const targetDate = new Date(Date.UTC(2025, 8, 17, 3, 0, 0))
     </template>
   </countdown>
 </template>
+
 <style>
-.dark {
+:root.dark {
   color-scheme: dark;
 }
 </style>

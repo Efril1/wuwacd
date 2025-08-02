@@ -8,8 +8,7 @@ export default defineNuxtConfig({
     colorMode: {
     preference: 'dark',
     fallback: 'dark',
-    storageKey: 'nuxt-color-mode', 
-    hid: 'nuxt-color-mode-script', 
+    storageKey: 'none',
   },
   vite: {
   plugins: [
