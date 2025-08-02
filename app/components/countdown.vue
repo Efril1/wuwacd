@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
       >
         <source :src="backgroundVideo" type="video/mp4">
       </video>
-<div class="absolute inset-0 bg-black/70"></div>   
+<div class="absolute inset-0 bg-black/30"></div>   
  </div>
 
     
@@ -111,7 +111,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
     <div v-else-if="activeTab === 'info'" class="w-full max-w-2xl mx-auto">
-      <UCard class="overflow-hidden bg-white/8">
+      <UCard class="overflow-hidden bg-black/20">
         <div class="flex flex-col md:flex-row">
           <!-- Left -->
           <div class="w-full md:w-1/2 flex items-center justify-center">
