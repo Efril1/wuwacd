@@ -1,8 +1,6 @@
 <script setup lang="ts">
-onMounted(() => {
-  document.documentElement.classList.remove('light')
-  document.documentElement.classList.add('dark')
-})
+const colorMode = useColorMode()
+colorMode.preference ='dark' 
 const targetDate = new Date(Date.UTC(2025, 8, 17, 3, 0, 0))
 </script>
 
