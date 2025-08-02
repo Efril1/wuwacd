@@ -137,6 +137,10 @@ onBeforeUnmount(() => {
                   <p class="text-sm text-gray-500">Element</p>
                   <p class="font-medium">Aero</p>
                 </div>
+                <div>
+                  <p class="text-sm text-gray-500">Weapon</p>
+                  <p class="font-medium">Gauntlet</p>
+                </div>
               </div>
             </div>
           </div>
@@ -171,5 +175,8 @@ onBeforeUnmount(() => {
   .colon {
     font-size: 2.5rem;
   }
+}
+:deep(*) {
+  color: white;
 }
 </style>
