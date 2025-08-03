@@ -23,7 +23,22 @@ const props = defineProps({
   colorChoice: {
     type: String as PropType<ColorChoice>,
     default: 'primary'
+  },
+    characterInfo: {
+    type: Object as PropType<{
+      name: string
+      element: string
+      weapon: string
+      about: string
+    }>,
+    default: () => ({
+      name: 'Character Name',
+      element: 'Element',
+      weapon: 'Weapon Type',
+      about: '"quote"—Character'
+    })
   }
+
 })
 const items = ref<TabsItem[]>([
   {
@@ -91,22 +106,42 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- Countdown Content -->
-        <h2 class="text-xl font-medium mb-8 text-center w-full pt-8">Countdown to {{ bannerchar }}</h2>
+     <div class="mx-auto">
+        <h2 class="chartext">{{ bannerchar }}</h2>
+      </div>
     <div v-if="activeTab === 'countdown'" class="flex-1 grid place-items-center p-4">
       <div class="text-center">
         
         
-        <div v-if="timeLeft" class="timer-display my-8">
-          <div class="flex items-baseline justify-center gap-2">
-            <span class="number">{{ String(timeLeft.days).padStart(2, '0') }}</span>
-            <span class="colon">:</span>
-            <span class="number">{{ String(timeLeft.hours).padStart(2, '0') }}</span>
-            <span class="colon">:</span>
-            <span class="number">{{ String(timeLeft.minutes).padStart(2, '0') }}</span>
-            <span class="colon">:</span>
-            <span class="number">{{ String(timeLeft.seconds).padStart(2, '0') }}</span>
-          </div>
-        </div>
+<div v-if="timeLeft" class="timer-display">
+  <div class="flex justify-center gap-10">
+    <div class="flex flex-col items-center">
+      <span class="number">{{ String(timeLeft.days).padStart(2, '0') }}</span>
+      <span>DAYS</span>
+    </div>
+
+    <span class="colon">:</span>
+
+    <div class="flex flex-col items-center">
+      <span class="number">{{ String(timeLeft.hours).padStart(2, '0') }}</span>
+      <span>HOURS</span>
+    </div>
+
+    <span class="colon">:</span>
+
+    <div class="flex flex-col items-center">
+      <span class="number">{{ String(timeLeft.minutes).padStart(2, '0') }}</span>
+      <span>MINUTES</span>
+    </div>
+
+    <span class="colon">:</span>
+
+    <div class="flex flex-col items-center">
+      <span class="number">{{ String(timeLeft.seconds).padStart(2, '0') }}</span>
+      <span>SECONDS</span>
+    </div>
+  </div>
+</div>
         <slot v-else name="finished"></slot>
       </div>
     </div>
@@ -131,17 +166,18 @@ onBeforeUnmount(() => {
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <p class="text-sm text-gray-500">Name</p>
-                  <p class="font-medium">Iuno</p>
+                  <p class="font-medium">{{ characterInfo.name }}</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-500">Element</p>
-                  <p class="font-medium">Aero</p>
+                  <p class="font-medium">{{ characterInfo.element }}</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-500">Weapon</p>
-                  <p class="font-medium">Gauntlet</p>
+                  <p class="font-medium">{{ characterInfo.weapon }}</p>
                 </div>
               </div>
+             <p class="font-medium">{{ characterInfo.about }}</p>
             </div>
           </div>
         </div>
@@ -152,8 +188,17 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+@font-face {
+  font-family: 'Genshin';
+  src: url('/fonts/genshin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .timer-display {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  margin-top: -100px;
 }
 
 .number {
@@ -163,9 +208,8 @@ onBeforeUnmount(() => {
 }
 
 .colon {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 600;
-  padding-bottom: 0.5rem;
 }
 
 @media (max-width: 768px) {
@@ -175,5 +219,25 @@ onBeforeUnmount(() => {
   .colon {
     font-size: 2.5rem;
   }
+}
+.chartext {
+    font-family: 'Genshin', sans-serif;
+    cursor: pointer;
+    color: #ffffff;
+    text-transform: uppercase;
+    padding: 15px;
+    z-index: 1;
+    animation: glow 1s ease-in-out infinite alternate;
+    font-size: 3rem;
+}
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 3px #fff, 0 0 3px #ffffff, 0 0 3px #ffffff, 0 0 3px #ffffff, 0 0 3px #ffffff,
+            0 0 70px #ffffff;
+    }
+    to {
+        text-shadow: 0 0 10px #fff, 0 0 3px #fff, 0 0 3px #ffffff, 0 0 3px #ffffff, 0 0 1px #ffffff, 0 0 1px #ffffff,
+            0 0 70px #ffffff;
+    }
 }
 </style>
