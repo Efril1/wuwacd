@@ -12,7 +12,11 @@ const props = defineProps({
     type: String,
     required: true
   },
-  infoImage: {
+  infoImageDesktop: {
+    type: String,
+    default: ''
+  },
+  infoImageMobile: {
     type: String,
     default: ''
   },
@@ -150,12 +154,14 @@ onBeforeUnmount(() => {
         <div class="flex flex-col md:flex-row">
           <!-- Left -->
           <div class="w-full md:w-1/2 flex items-center justify-center">
+          <picture v-if="infoImageDesktop || infoImageMobile">
+            <source media="(max-width: 767px)" :srcset="infoImageMobile">
             <img 
-              v-if="infoImage" 
-              :src="infoImage" 
-              alt="Information" 
+              :src="infoImageDesktop" 
+              alt="Character Information" 
               class="object-cover w-full h-64 md:h-full"
             >
+          </picture>
             <p v-else class="text-center p-4">No image provided</p>
           </div>
           
@@ -169,7 +175,7 @@ onBeforeUnmount(() => {
                   <p class="font-medium">{{ characterInfo.name }}</p>
                 </div>
                 <div>
-                  <p class="text-sm text-gray-500">Element</p>
+                  <p class="text-sm text-gray-500">Attribute</p>
                   <p class="font-medium">{{ characterInfo.element }}</p>
                 </div>
                 <div>
