@@ -117,32 +117,32 @@ onBeforeUnmount(() => {
       <div class="text-center">
         
         
-<div v-if="timeLeft" class="timer-display">
-  <div class="flex justify-center gap-10">
+<div v-if="timeLeft" class="timer-display w-full px-4">
+  <div class="flex flex-wrap justify-center gap-x-4 gap-y-2">
     <div class="flex flex-col items-center">
-      <span class="number">{{ String(timeLeft.days).padStart(2, '0') }}</span>
-      <span>DAYS</span>
+      <span class="number text-4xl sm:text-5xl font-extrabold">{{ String(timeLeft.days).padStart(2, '0') }}</span>
+      <span class="text-sm">DAYS</span>
     </div>
 
-    <span class="colon">:</span>
+    <span class="colon text-4xl sm:text-5xl font-extrabold self-end sm:self-center">:</span>
 
     <div class="flex flex-col items-center">
-      <span class="number">{{ String(timeLeft.hours).padStart(2, '0') }}</span>
-      <span>HOURS</span>
+      <span class="number text-4xl sm:text-5xl font-extrabold">{{ String(timeLeft.hours).padStart(2, '0') }}</span>
+      <span class="text-sm">HOURS</span>
     </div>
 
-    <span class="colon">:</span>
+    <span class="colon text-4xl sm:text-5xl font-extrabold self-end sm:self-center">:</span>
 
     <div class="flex flex-col items-center">
-      <span class="number">{{ String(timeLeft.minutes).padStart(2, '0') }}</span>
-      <span>MINUTES</span>
+      <span class="number text-4xl sm:text-5xl font-extrabold">{{ String(timeLeft.minutes).padStart(2, '0') }}</span>
+      <span class="text-sm">MINUTES</span>
     </div>
 
-    <span class="colon">:</span>
+    <span class="colon text-4xl sm:text-5xl font-extrabold self-end sm:self-center">:</span>
 
     <div class="flex flex-col items-center">
-      <span class="number">{{ String(timeLeft.seconds).padStart(2, '0') }}</span>
-      <span>SECONDS</span>
+      <span class="number text-4xl sm:text-5xl font-extrabold">{{ String(timeLeft.seconds).padStart(2, '0') }}</span>
+      <span class="text-sm">SECONDS</span>
     </div>
   </div>
 </div>
