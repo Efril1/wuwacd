@@ -63,11 +63,20 @@ const items = ref<TabsItem[]>([
 
 const now = ref(new Date());
 const timer = ref<NodeJS.Timeout | null>(null);
-const activeTab = ref("countdown");
+const tabStore = useTabStore(); // Use the Pinia store
 const route = useRoute();
 const isFirstPage = computed(() => route.name === 'first');
 
+const activeTab = computed({
+  get() {
+    return tabStore.activeTab;
+  },
+  set(newValue: 'countdown' | 'info') {
+    tabStore.setActiveTab(newValue);
+  },
+});
 
+  
 
 const timeLeft = computed(() => {
   const diff = props.targetTime.getTime() - now.value.getTime();
