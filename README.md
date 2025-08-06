@@ -1,3 +1,9 @@
+
+# How to use:
+you can use any page at /pages as a template. Just change everything to match your desired character including a background video, information tab of the character etc.
+Congratulations. You have a nice, responsive countdown app for your desired character.
+
+
 # Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
