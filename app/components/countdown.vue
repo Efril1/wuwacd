@@ -63,7 +63,7 @@ const items = ref<TabsItem[]>([
 
 const now = ref(new Date());
 const timer = ref<NodeJS.Timeout | null>(null);
-const tabStore = useTabStore(); // Use the Pinia store
+const tabStore = useTabStore();
 const route = useRoute();
 const isFirstPage = computed(() => route.name === 'first');
 
