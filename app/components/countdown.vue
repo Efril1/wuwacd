@@ -117,30 +117,33 @@ onBeforeUnmount(() => {
       <div class="text-center">
         
         
-<div v-if="timeLeft" class="timer-display w-full px-4">
-  <div class="flex flex-wrap justify-center gap-x-4 gap-y-2">
-    <div class="flex flex-col items-center">
+<div v-if="timeLeft" class="timer-display">
+  <div class="flex  gap-x-4 gap-y-2">
+    <div class="flex flex-col">
+      <div>
       <span class="number text-4xl sm:text-5xl font-extrabold">{{ String(timeLeft.days).padStart(2, '0') }}</span>
+      </div>
       <span class="text-sm">DAYS</span>
+      
     </div>
 
-    <span class="colon text-4xl sm:text-5xl font-extrabold self-end sm:self-center">:</span>
+    <span class=" text-4xl  font-extrabold md:pt-4">:</span>
 
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col">
       <span class="number text-4xl sm:text-5xl font-extrabold">{{ String(timeLeft.hours).padStart(2, '0') }}</span>
       <span class="text-sm">HOURS</span>
     </div>
 
-    <span class="colon text-4xl sm:text-5xl font-extrabold self-end sm:self-center">:</span>
+    <span class=" text-4xl  font-extrabold md:pt-4">:</span>
 
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col">
       <span class="number text-4xl sm:text-5xl font-extrabold">{{ String(timeLeft.minutes).padStart(2, '0') }}</span>
       <span class="text-sm">MINUTES</span>
     </div>
 
-    <span class="colon text-4xl sm:text-5xl font-extrabold self-end sm:self-center">:</span>
+    <span class=" text-4xl  font-extrabold md:pt-4">:</span>
 
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col">
       <span class="number text-4xl sm:text-5xl font-extrabold">{{ String(timeLeft.seconds).padStart(2, '0') }}</span>
       <span class="text-sm">SECONDS</span>
     </div>
@@ -213,10 +216,6 @@ onBeforeUnmount(() => {
   line-height: 1;
 }
 
-.colon {
-  font-size: 3rem;
-  font-weight: 600;
-}
 
 @media (max-width: 768px) {
   .number {
