@@ -13,7 +13,8 @@ useHead({
   <main class="relative h-screen">
     <div class="h-full w-full overflow-y-auto">
       <slot />
-    </div>
+
+      </div>
 
   </main>
 </template>

@@ -107,6 +107,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+    <div class="fixed bottom-4 right-4 z-90 color-white">
+  <UButton icon="i-lucide-github"  variant="ghost" to='https://github.com/Efril1' target='_blank'>Made by Efril</UButton>
+    </div>
   <div v-if="backgroundVideo" class="fixed inset-0 z-0">
     <video autoplay muted loop playsinline class="w-full h-full object-cover">
       <source :src="backgroundVideo" type="video/mp4" />
@@ -233,6 +236,9 @@ onBeforeUnmount(() => {
           </UCard>
         </div>
       </FadeContent>
+      <template>
+</template>
+
     </div>
   </div>
 </template>
