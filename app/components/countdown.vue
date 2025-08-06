@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { TabsItem } from "@nuxt/ui";
 import FadeContent from "../../src/blocks/Animations/FadeContent/FadeContent.vue";
-import StarBorder from "~~/src/blocks/Animations/StarBorder/StarBorder.vue";
-import ShinyText from "~~/src/blocks/TextAnimations/ShinyText/ShinyText.vue";
 type ColorChoice =
   | "primary"
   | "info"
@@ -67,7 +65,7 @@ const now = ref(new Date());
 const timer = ref<NodeJS.Timeout | null>(null);
 const activeTab = ref("countdown");
 const route = useRoute();
-const isFirstPage = computed(() => route.path === '/first');
+const isFirstPage = computed(() => route.name === 'first');
 
 
 
