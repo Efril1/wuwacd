@@ -2,24 +2,22 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-    app: {
+  app: {
     head: {
-      title: 'Wuwa Countdown',
-    }
+      title: "Wuwa Countdown",
+    },
   },
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
-    colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
-    storageKey: 'none',
+  css: ["~/assets/css/main.css"],
+  colorMode: {
+    preference: "dark",
+    fallback: "dark",
+    storageKey: "none",
   },
   vite: {
-  plugins: [
-    tailwindcss(),
-  ],
-},
+    plugins: [tailwindcss()],
+  },
 
-  modules: ['@pinia/nuxt','@nuxt/ui'],
-})
+  modules: ["@pinia/nuxt", "@nuxt/ui"],
+});

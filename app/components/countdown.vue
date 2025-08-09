@@ -65,18 +65,16 @@ const now = ref(new Date());
 const timer = ref<NodeJS.Timeout | null>(null);
 const tabStore = useTabStore();
 const route = useRoute();
-const isFirstPage = computed(() => route.name === 'first');
+const isFirstPage = computed(() => route.name === "first");
 
 const activeTab = computed({
   get() {
     return tabStore.activeTab;
   },
-  set(newValue: 'countdown' | 'info') {
+  set(newValue: "countdown" | "info") {
     tabStore.setActiveTab(newValue);
   },
 });
-
-  
 
 const timeLeft = computed(() => {
   const diff = props.targetTime.getTime() - now.value.getTime();
@@ -103,13 +101,18 @@ onMounted(() => {
 onBeforeUnmount(() => {
   if (timer.value) clearInterval(timer.value);
 });
-
 </script>
 
 <template>
-    <div class="fixed bottom-4 right-4 z-90 color-white">
-  <UButton icon="i-lucide-github"  variant="ghost" to='https://github.com/Efril1' target='_blank'>Made by Efril</UButton>
-    </div>
+  <div class="fixed bottom-4 right-4 z-90 color-white">
+    <UButton
+      icon="i-lucide-github"
+      variant="ghost"
+      to="https://github.com/Efril1"
+      target="_blank"
+      >Made by Efril</UButton
+    >
+  </div>
   <div v-if="backgroundVideo" class="fixed inset-0 z-0">
     <video autoplay muted loop playsinline class="w-full h-full object-cover">
       <source :src="backgroundVideo" type="video/mp4" />
@@ -130,10 +133,10 @@ onBeforeUnmount(() => {
     <!-- Countdown Content -->
     <div class="mx-auto">
       <NuxtLink :to="isFirstPage ? '/second' : '/first'">
-      <h2 class="chartext">{{ bannerchar }}</h2>
+        <h2 class="chartext">{{ bannerchar }}</h2>
       </NuxtLink>
     </div>
-      <h2 class="mx-auto"> ↑ click to switch character</h2>
+    <h2 class="mx-auto">↑ click to switch character</h2>
     <div
       v-if="activeTab === 'countdown'"
       class="flex-1 grid place-items-center p-4"
@@ -236,9 +239,7 @@ onBeforeUnmount(() => {
           </UCard>
         </div>
       </FadeContent>
-      <template>
-</template>
-
+      <template> </template>
     </div>
   </div>
 </template>
