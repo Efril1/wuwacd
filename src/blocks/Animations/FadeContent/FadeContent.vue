@@ -49,7 +49,7 @@ onMounted(() => {
 
   observer = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) {
+      if (entry?.isIntersecting) {
         observer?.unobserve(element);
         setTimeout(() => {
           inView.value = true;

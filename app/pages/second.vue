@@ -1,22 +1,21 @@
-
 <script setup lang="ts">
-const targetDate = new Date(Date.UTC(2025, 8, 17, 3, 0, 0))
+const targetDate = new Date(Date.UTC(2025, 8, 17, 3, 0, 0));
 const characterInfo = {
   name: "Iuno",
   element: "Aero",
   weapon: "Gauntlet",
-  about: "\"While the moon cycles, I remain the anchor.\"—Iuno"
-}
+  about: '"While the moon cycles, I remain the anchor."—Iuno',
+};
 </script>
 
 <template>
-  <countdown 
+  <countdown
     :target-time="targetDate"
     :character-info="characterInfo"
     bannerchar="IUNO"
     info-image-desktop="/images/Iuno_Card.webp"
     info-image-mobile="/images/iuno-mobile.webp"
-    background-video="/images/iunovid.mp4" 
+    background-video="/images/iunovid.mp4"
     color-choice="secondary"
   >
     <template #finished>
