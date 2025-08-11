@@ -1,4 +1,6 @@
 <script setup>
+import { ULink } from '#components';
+
 useHead({
   script: [
     {
@@ -16,5 +18,16 @@ useHead({
 
       </div>
 
+    <div class="relative flex mx-auto justify-center font-medium">
+      <ULink active="false">Made by&nbsp;</ULink>
+    <ULink
+      icon="i-lucide-github"
+      variant="link"
+      to="https://github.com/Efril1"
+      target="_blank"
+      class="text-white-100 hover:underline"
+      >@Efril
+      </ULink>
+  </div>
   </main>
 </template>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { TabsItem } from "@nuxt/ui";
 import FadeContent from "../../src/blocks/Animations/FadeContent/FadeContent.vue";
+import NumberFlow from '@number-flow/vue'
+
 type ColorChoice =
   | "primary"
   | "info"
@@ -104,15 +106,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="fixed bottom-4 right-4 z-90 color-white">
-    <UButton
-      icon="i-lucide-github"
-      variant="ghost"
-      to="https://github.com/Efril1"
-      target="_blank"
-      >Made by Efril</UButton
-    >
-  </div>
+
   <div v-if="backgroundVideo" class="fixed inset-0 z-0">
     <video autoplay muted loop playsinline class="w-full h-full object-cover">
       <source :src="backgroundVideo" type="video/mp4" />
@@ -144,42 +138,48 @@ onBeforeUnmount(() => {
       <div class="text-center">
         <div v-if="timeLeft" class="timer-display">
           <div class="flex flex-wrap gap-x-4 gap-y-2">
-            <div class="flex flex-col">
-              <div>
-                <span class="number text-4xl sm:text-5xl font-extrabold">{{
-                  String(timeLeft.days).padStart(2, "0")
-                }}</span>
-              </div>
-              <span class="text-sm">DAYS</span>
-            </div>
+  <div class="flex flex-col">
+    <NumberFlow 
+      :value="timeLeft.days" 
+      class="text-4xl sm:text-5xl font-extrabold"
+      :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
+    />
+    <span class="text-sm">DAYS</span>
+  </div>
 
-            <span class="text-4xl font-extrabold md:pt-4">:</span>
+  <span class="text-4xl font-extrabold md:pt-4">:</span>
 
-            <div class="flex flex-col">
-              <span class="number text-4xl sm:text-5xl font-extrabold">{{
-                String(timeLeft.hours).padStart(2, "0")
-              }}</span>
-              <span class="text-sm">HOURS</span>
-            </div>
+  <div class="flex flex-col">
+    <NumberFlow 
+      :value="timeLeft.hours" 
+      class="text-4xl sm:text-5xl font-extrabold"
+      :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
+    />
+    <span class="text-sm">HOURS</span>
+  </div>
 
-            <span class="text-4xl font-extrabold md:pt-4">:</span>
+  <span class="text-4xl font-extrabold md:pt-4">:</span>
 
-            <div class="flex flex-col">
-              <span class="number text-4xl sm:text-5xl font-extrabold">{{
-                String(timeLeft.minutes).padStart(2, "0")
-              }}</span>
-              <span class="text-sm">MINUTES</span>
-            </div>
+  <div class="flex flex-col">
+    <NumberFlow 
+      :value="timeLeft.minutes" 
+      class="text-4xl sm:text-5xl font-extrabold"
+      :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
+    />
+    <span class="text-sm">MINUTES</span>
+  </div>
 
-            <span class="text-4xl font-extrabold md:pt-4">:</span>
+  <span class="text-4xl font-extrabold md:pt-4">:</span>
 
-            <div class="flex flex-col">
-              <span class="number text-4xl sm:text-5xl font-extrabold">{{
-                String(timeLeft.seconds).padStart(2, "0")
-              }}</span>
-              <span class="text-sm">SECONDS</span>
-            </div>
-          </div>
+  <div class="flex flex-col">
+    <NumberFlow 
+      :value="timeLeft.seconds" 
+      class="text-4xl sm:text-5xl font-extrabold"
+      :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
+    />
+    <span class="text-sm">SECONDS</span>
+  </div>
+</div>
         </div>
         <slot v-else name="finished"></slot>
       </div>
