@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TabsItem } from "@nuxt/ui";
 import FadeContent from "../../src/blocks/Animations/FadeContent/FadeContent.vue";
-import NumberFlow from '@number-flow/vue'
+import NumberFlow from "@number-flow/vue";
 
 type ColorChoice =
   | "primary"
@@ -52,6 +52,8 @@ const props = defineProps({
     }),
   },
 });
+
+const isHovered = ref(false);
 const items = ref<TabsItem[]>([
   {
     label: "countdown",
@@ -106,12 +108,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-
   <div v-if="backgroundVideo" class="fixed inset-0 z-0">
     <video autoplay muted loop playsinline class="w-full h-full object-cover">
       <source :src="backgroundVideo" type="video/mp4" />
     </video>
-    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="absolute inset-0 bg-black/40"></div>
   </div>
 
   <div class="flex flex-col min-h-screen relative z-10">
@@ -126,11 +127,24 @@ onBeforeUnmount(() => {
 
     <!-- Countdown Content -->
     <div class="mx-auto">
-      <NuxtLink :to="isFirstPage ? '/second' : '/first'">
-        <h2 class="chartext">{{ bannerchar }}</h2>
-      </NuxtLink>
+      <div class="relative inline-block hover:[&>h2:first-child]:opacity-70">
+        <!-- Blurred background text -->
+        <h2
+          class="chartext blurred-text absolute inset-0 blur-xl opacity-0 hover:opacity-80 scale-160 transition-all duration-300 pointer-events-none"
+        >
+          {{ bannerchar }}
+        </h2>
+
+        <!-- Normal text -->
+        <NuxtLink :to="isFirstPage ? '/second' : '/first'">
+          <h2 class="chartext relative">
+            {{ bannerchar }}
+          </h2>
+        </NuxtLink>
+      </div>
     </div>
-    <h2 class="mx-auto">↑ click to switch character</h2>
+
+    
     <div
       v-if="activeTab === 'countdown'"
       class="flex-1 grid place-items-center p-4"
@@ -138,48 +152,48 @@ onBeforeUnmount(() => {
       <div class="text-center">
         <div v-if="timeLeft" class="timer-display">
           <div class="flex flex-wrap gap-x-4 gap-y-2">
-  <div class="flex flex-col">
-    <NumberFlow 
-      :value="timeLeft.days" 
-      class="text-4xl sm:text-5xl font-extrabold"
-      :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
-    />
-    <span class="text-sm">DAYS</span>
-  </div>
+            <div class="flex flex-col">
+              <NumberFlow
+                :value="timeLeft.days"
+                class="text-4xl sm:text-5xl font-extrabold"
+                :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
+              />
+              <span class="text-sm">DAYS</span>
+            </div>
 
-  <span class="text-4xl font-extrabold md:pt-4">:</span>
+            <span class="text-4xl font-extrabold md:pt-4">:</span>
 
-  <div class="flex flex-col">
-    <NumberFlow 
-      :value="timeLeft.hours" 
-      class="text-4xl sm:text-5xl font-extrabold"
-      :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
-    />
-    <span class="text-sm">HOURS</span>
-  </div>
+            <div class="flex flex-col">
+              <NumberFlow
+                :value="timeLeft.hours"
+                class="text-4xl sm:text-5xl font-extrabold"
+                :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
+              />
+              <span class="text-sm">HOURS</span>
+            </div>
 
-  <span class="text-4xl font-extrabold md:pt-4">:</span>
+            <span class="text-4xl font-extrabold md:pt-4">:</span>
 
-  <div class="flex flex-col">
-    <NumberFlow 
-      :value="timeLeft.minutes" 
-      class="text-4xl sm:text-5xl font-extrabold"
-      :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
-    />
-    <span class="text-sm">MINUTES</span>
-  </div>
+            <div class="flex flex-col">
+              <NumberFlow
+                :value="timeLeft.minutes"
+                class="text-4xl sm:text-5xl font-extrabold"
+                :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
+              />
+              <span class="text-sm">MINUTES</span>
+            </div>
 
-  <span class="text-4xl font-extrabold md:pt-4">:</span>
+            <span class="text-4xl font-extrabold md:pt-4">:</span>
 
-  <div class="flex flex-col">
-    <NumberFlow 
-      :value="timeLeft.seconds" 
-      class="text-4xl sm:text-5xl font-extrabold"
-      :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
-    />
-    <span class="text-sm">SECONDS</span>
-  </div>
-</div>
+            <div class="flex flex-col">
+              <NumberFlow
+                :value="timeLeft.seconds"
+                class="text-4xl sm:text-5xl font-extrabold"
+                :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
+              />
+              <span class="text-sm">SECONDS</span>
+            </div>
+          </div>
         </div>
         <slot v-else name="finished"></slot>
       </div>
@@ -273,24 +287,15 @@ onBeforeUnmount(() => {
     font-size: 2.5rem;
   }
 }
+
 .chartext {
   font-family: "Genshin", sans-serif;
   cursor: pointer;
-  color: #ffffff;
   text-transform: uppercase;
   padding: 15px;
-  z-index: 1;
-  animation: glow 1s ease-in-out infinite alternate;
   font-size: 3rem;
 }
-@keyframes glow {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 3px #fff, 0 0 3px #ffffff, 0 0 3px #ffffff,
-      0 0 3px #ffffff, 0 0 10px #ffffff, 0 0 30px #ffffff;
-  }
-  to {
-    text-shadow: 0 0 10px #fff, 0 0 3px #fff, 0 0 3px #ffffff, 0 0 3px #ffffff,
-      0 0 1px #ffffff, 0 0 1px #ffffff, 0 0 70px #ffffff;
-  }
+.blurred-text {
+  filter: blur(8px) brightness(0.9);
 }
 </style>
