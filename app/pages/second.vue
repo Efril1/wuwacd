@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { useBannerStore } from '~/stores/bannerStore'
 
-// Remove the individual props and use the store index instead
 const bannerStore = useBannerStore()
 
-// Specify which banner index to use (0 for Iuno in your example)
 const bannerIndex = 1
 </script>
 

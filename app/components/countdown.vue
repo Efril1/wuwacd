@@ -88,7 +88,6 @@ onBeforeUnmount(() => {
   </div>
 
   <div class="flex flex-col min-h-screen relative z-10">
-    <!-- Tabs at top -->
     <div class="w-full max-w-2xl mx-auto pt-4">
       <UTabs
         :color="banner?.colorChoice || 'primary'"
@@ -99,14 +98,12 @@ onBeforeUnmount(() => {
 
     <div class="mx-auto">
       <div class="relative inline-block hover:[&>h2:first-child]:opacity-70">
-        <!-- Blurred background text -->
         <h2
           class="chartext blurred-text absolute inset-0 blur-xl opacity-0 hover:opacity-80 scale-160 transition-all duration-300 pointer-events-none"
         >
           {{ banner?.bannerChar }}
         </h2>
 
-        <!-- Normal text -->
         <NuxtLink :to="isFirstPage ? '/second' : '/first'">
           <h2 class="chartext relative">
             {{ banner?.bannerChar }}
