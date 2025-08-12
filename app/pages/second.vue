@@ -1,22 +1,16 @@
 <script setup lang="ts">
-const targetDate = new Date(Date.UTC(2025, 8, 17, 3, 0, 0));
-const characterInfo = {
-  name: "Iuno",
-  element: "Aero",
-  weapon: "Gauntlet",
-  about: '"While the moon cycles, I remain the anchor."—Iuno',
-};
+import { useBannerStore } from '~/stores/bannerStore'
+
+// Remove the individual props and use the store index instead
+const bannerStore = useBannerStore()
+
+// Specify which banner index to use (0 for Iuno in your example)
+const bannerIndex = 1
 </script>
 
 <template>
   <countdown
-    :target-time="targetDate"
-    :character-info="characterInfo"
-    bannerchar="IUNO"
-    info-image-desktop="/images/Iuno_Card.webp"
-    info-image-mobile="/images/iuno-mobile.webp"
-    background-video="/images/iunovid.mp4"
-    color-choice="secondary"
+    :banner-index="bannerIndex"
   >
     <template #finished>
       <div class="custom-finished">

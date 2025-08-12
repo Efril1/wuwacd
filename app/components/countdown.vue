@@ -2,6 +2,7 @@
 import type { TabsItem } from "@nuxt/ui";
 import FadeContent from "../../src/blocks/Animations/FadeContent/FadeContent.vue";
 import NumberFlow from "@number-flow/vue";
+import CountDownDisplay from "./CountDownDisplay.vue";
 
 type ColorChoice =
   | "primary"
@@ -13,45 +14,14 @@ type ColorChoice =
   | "neutral";
 
 const props = defineProps({
-  targetTime: {
-    type: Date,
-    required: true,
-  },
-  bannerchar: {
-    type: String,
-    required: true,
-  },
-  infoImageDesktop: {
-    type: String,
-    default: "",
-  },
-  infoImageMobile: {
-    type: String,
-    default: "",
-  },
-  backgroundVideo: {
-    type: String,
-    default: "",
-  },
-  colorChoice: {
-    type: String as PropType<ColorChoice>,
-    default: "primary",
-  },
-  characterInfo: {
-    type: Object as PropType<{
-      name: string;
-      element: string;
-      weapon: string;
-      about: string;
-    }>,
-    default: () => ({
-      name: "Character Name",
-      element: "Element",
-      weapon: "Weapon Type",
-      about: '"quote"—Character',
-    }),
-  },
+  bannerIndex: {
+    type: Number,
+    default: 0
+  }
 });
+
+const bannerStore = useBannerStore()
+const banner = computed(() => bannerStore.getBanner(props.bannerIndex))
 
 const isHovered = ref(false);
 const items = ref<TabsItem[]>([
@@ -81,7 +51,9 @@ const activeTab = computed({
 });
 
 const timeLeft = computed(() => {
-  const diff = props.targetTime.getTime() - now.value.getTime();
+  if (!banner.value?.targetTime) return null;
+  
+  const diff = banner.value.targetTime.getTime() - now.value.getTime();
 
   if (diff <= 0) return null;
 
@@ -108,9 +80,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="backgroundVideo" class="fixed inset-0 z-0">
+  <div v-if="banner?.backgroundVideo" class="fixed inset-0 z-0">
     <video autoplay muted loop playsinline class="w-full h-full object-cover">
-      <source :src="backgroundVideo" type="video/mp4" />
+      <source :src="banner.backgroundVideo" type="video/mp4" />
     </video>
     <div class="absolute inset-0 bg-black/40"></div>
   </div>
@@ -119,87 +91,45 @@ onBeforeUnmount(() => {
     <!-- Tabs at top -->
     <div class="w-full max-w-2xl mx-auto pt-4">
       <UTabs
-        :color="colorChoice || 'primary'"
+        :color="banner?.colorChoice || 'primary'"
         v-model="activeTab"
         :items="items"
       />
     </div>
 
-    <!-- Countdown Content -->
     <div class="mx-auto">
       <div class="relative inline-block hover:[&>h2:first-child]:opacity-70">
         <!-- Blurred background text -->
         <h2
           class="chartext blurred-text absolute inset-0 blur-xl opacity-0 hover:opacity-80 scale-160 transition-all duration-300 pointer-events-none"
         >
-          {{ bannerchar }}
+          {{ banner?.bannerChar }}
         </h2>
 
         <!-- Normal text -->
         <NuxtLink :to="isFirstPage ? '/second' : '/first'">
           <h2 class="chartext relative">
-            {{ bannerchar }}
+            {{ banner?.bannerChar }}
           </h2>
         </NuxtLink>
       </div>
     </div>
-
     
     <div
       v-if="activeTab === 'countdown'"
       class="flex-1 grid place-items-center p-4"
     >
-      <div class="text-center">
-        <div v-if="timeLeft" class="timer-display">
-          <div class="flex flex-wrap gap-x-4 gap-y-2">
-            <div class="flex flex-col">
-              <NumberFlow
-                :value="timeLeft.days"
-                class="text-4xl sm:text-5xl font-extrabold"
-                :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
-              />
-              <span class="text-sm">DAYS</span>
-            </div>
-
-            <span class="text-4xl font-extrabold md:pt-4">:</span>
-
-            <div class="flex flex-col">
-              <NumberFlow
-                :value="timeLeft.hours"
-                class="text-4xl sm:text-5xl font-extrabold"
-                :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
-              />
-              <span class="text-sm">HOURS</span>
-            </div>
-
-            <span class="text-4xl font-extrabold md:pt-4">:</span>
-
-            <div class="flex flex-col">
-              <NumberFlow
-                :value="timeLeft.minutes"
-                class="text-4xl sm:text-5xl font-extrabold"
-                :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
-              />
-              <span class="text-sm">MINUTES</span>
-            </div>
-
-            <span class="text-4xl font-extrabold md:pt-4">:</span>
-
-            <div class="flex flex-col">
-              <NumberFlow
-                :value="timeLeft.seconds"
-                class="text-4xl sm:text-5xl font-extrabold"
-                :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
-              />
-              <span class="text-sm">SECONDS</span>
-            </div>
-          </div>
-        </div>
-        <slot v-else name="finished"></slot>
-      </div>
+      <CountDownDisplay 
+        :timeLeft="timeLeft" 
+        :colorChoice="banner?.colorChoice || 'primary'"
+      >
+        <template #finished>
+          <slot name="finished"></slot>
+        </template>
+      </CountDownDisplay>
     </div>
 
-    <div v-else-if="activeTab === 'info'" class="w-full max-w-2xl mx-auto">
+    <div v-else-if="activeTab === 'info' && banner" class="w-full max-w-2xl mx-auto">
       <FadeContent
         :blur="true"
         :duration="500"
@@ -214,13 +144,13 @@ onBeforeUnmount(() => {
             <div class="flex flex-col md:flex-row">
               <!-- Left -->
               <div class="w-full md:w-1/2 flex items-center justify-center">
-                <picture v-if="infoImageDesktop || infoImageMobile">
+                <picture v-if="banner.infoImageDesktop || banner.infoImageMobile">
                   <source
                     media="(max-width: 767px)"
-                    :srcset="infoImageMobile"
+                    :srcset="banner.infoImageMobile"
                   />
                   <img
-                    :src="infoImageDesktop"
+                    :src="banner.infoImageDesktop"
                     alt="Character Information"
                     class="object-cover w-full h-64 md:h-full"
                   />
@@ -235,25 +165,24 @@ onBeforeUnmount(() => {
                   <div class="grid grid-cols-2 gap-4">
                     <div>
                       <p class="text-sm text-gray-500">Name</p>
-                      <p class="font-medium">{{ characterInfo.name }}</p>
+                      <p class="font-medium">{{ banner.characterInfo.name }}</p>
                     </div>
                     <div>
                       <p class="text-sm text-gray-500">Attribute</p>
-                      <p class="font-medium">{{ characterInfo.element }}</p>
+                      <p class="font-medium">{{ banner.characterInfo.element }}</p>
                     </div>
                     <div>
                       <p class="text-sm text-gray-500">Weapon</p>
-                      <p class="font-medium">{{ characterInfo.weapon }}</p>
+                      <p class="font-medium">{{ banner.characterInfo.weapon }}</p>
                     </div>
                   </div>
-                  <p class="font-medium">{{ characterInfo.about }}</p>
+                  <p class="font-medium">{{ banner.characterInfo.about }}</p>
                 </div>
               </div>
             </div>
           </UCard>
         </div>
       </FadeContent>
-      <template> </template>
     </div>
   </div>
 </template>
