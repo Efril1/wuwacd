@@ -4,18 +4,18 @@ const characterInfo = {
   name: "Augusta",
   element: "Electro",
   weapon: "Broadblade",
-  about: "\"All the sun touches is ours to fight for.\"—Augusta"
-}
+  about: '"All the sun touches is ours to fight for."—Augusta',
+};
 </script>
 
 <template>
-  <countdown 
+  <countdown
     :target-time="targetDate"
     :character-info="characterInfo"
     bannerchar="AUGUSTA"
     info-image-desktop="/images/augustacard.webp"
     info-image-mobile="/images/augustamobile.webp"
-    background-video="/images/augustavid.webm" 
+    background-video="/images/augustavid.webm"
     color-choice="error"
   >
     <template #finished>
@@ -25,4 +25,3 @@ const characterInfo = {
     </template>
   </countdown>
 </template>
-
