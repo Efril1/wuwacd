@@ -19,49 +19,50 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="text-center scale-150">
+  <div class="text-center">
     <div v-if="timeLeft" class="timer-display">
-      <div class="flex flex-wrap gap-x-4 gap-y-2">
-        <div class="flex flex-col">
+      <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:gap-x-8">
+
+        <div class="flex flex-col items-center">
           <NumberFlow
             :value="timeLeft.days"
-            class="text-4xl sm:text-5xl font-extrabold"
+            class="text-5xl sm:text-6xl md:text-7xl font-extrabold"
             :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
           />
-          <span class="text-sm font-light">DAYS</span>
+          <span class="text-sm sm:text-base font-light">DAYS</span>
         </div>
 
-        <span class="text-4xl font-extrabold md:pt-4">:</span>
+        <span class="colon text-5xl sm:text-6xl md:text-7xl font-extrabold sm:pt-2 md:pt-5">:</span>
 
-        <div class="flex flex-col">
+        <div class="flex flex-col items-center">
           <NumberFlow
             :value="timeLeft.hours"
-            class="text-4xl sm:text-5xl font-extrabold"
+            class="text-5xl sm:text-6xl md:text-7xl font-extrabold"
             :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
           />
-          <span class="text-sm">HOURS</span>
+          <span class="text-sm sm:text-base">HOURS</span>
         </div>
 
-        <span class="text-4xl font-extrabold md:pt-4">:</span>
+        <span class="colon text-5xl sm:text-6xl md:text-7xl font-extrabold sm:pt-2 md:pt-5">:</span>
 
-        <div class="flex flex-col">
+        <div class="flex flex-col items-center">
           <NumberFlow
             :value="timeLeft.minutes"
-            class="text-4xl sm:text-5xl font-extrabold"
+            class="text-5xl sm:text-6xl md:text-7xl font-extrabold"
             :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
           />
-          <span class="text-sm">MINUTES</span>
+          <span class="text-sm sm:text-base">MINUTES</span>
         </div>
 
-        <span class="text-4xl font-extrabold md:pt-4">:</span>
+        <span class="colon text-5xl sm:text-6xl md:text-7xl font-extrabold sm:pt-2 md:pt-5">:</span>
 
-        <div class="flex flex-col">
+        <div class="flex flex-col items-center">
           <NumberFlow
             :value="timeLeft.seconds"
-            class="text-4xl sm:text-5xl font-extrabold"
+            class="text-5xl sm:text-6xl md:text-7xl font-extrabold"
             :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
           />
-          <span class="text-sm">SECONDS</span>
+          <span class="text-sm sm:text-base">SECONDS</span>
         </div>
       </div>
     </div>
