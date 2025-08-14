@@ -96,25 +96,45 @@ onBeforeUnmount(() => {
       </div>
 
       <div v-if="banner" class="w-full max-w-2xl mx-auto scale-90">
-        <div class="absolute flex flex-col gap-2 top-6 -left-40 w-35 z-20">
-          <div class="h-17 overflow-hidden rounded-2xl">
-            <NuxtLink to="/first">
-              <img
-                :src="banner.infoImageMobile1"
-                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-              />
-            </NuxtLink>
-          </div>
+        <div class="desktop-images absolute flex flex-col gap-2 top-6 -left-40 w-35 z-20">
+      <div class="h-17 overflow-hidden rounded-2xl">
+        <NuxtLink to="/first">
+          <img
+            :src="banner.infoImageMobile1"
+            class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
+          />
+        </NuxtLink>
+      </div>
+      <div class="h-17 overflow-hidden rounded-2xl">
+        <NuxtLink to="/second">
+          <img
+            :src="banner.infoImageMobile2"
+            class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
+          />
+        </NuxtLink>
+      </div>
+    </div>
 
-          <div class="h-17 overflow-hidden rounded-2xl">
-            <NuxtLink to="/second">
-              <img
-                :src="banner.infoImageMobile2"
-                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-              />
-            </NuxtLink>
-          </div>
-        </div>
+    <!-- Mobile -->
+    <div class="mobile-images flex flex-row justify-center items-center mx-auto gap-4 w-full max-w-2xl">
+      <div class="h-17 overflow-hidden rounded-2xl">
+        <NuxtLink to="/first">
+          <img
+            :src="banner.infoImageMobile1"
+            class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
+          />
+        </NuxtLink>
+      </div>
+      <div class="h-17 overflow-hidden rounded-2xl">
+        <NuxtLink to="/second">
+          <img
+            :src="banner.infoImageMobile2"
+            class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
+          />
+        </NuxtLink>
+      </div>
+    </div>
+
         <FadeContent
           :blur="true"
           :duration="500"
@@ -135,6 +155,8 @@ onBeforeUnmount(() => {
                     <source
                       media="(max-width: 767px)"
                       :srcset="banner.infoImageMobile"
+                      class="object-top-right w-full h-64 md:h-full"
+
                     />
                     <img
                       :src="banner.infoImageDesktop"
@@ -199,6 +221,12 @@ onBeforeUnmount(() => {
   font-weight: 800;
   line-height: 1;
 }
+.desktop-images {
+  display: flex;
+}
+.mobile-images {
+  display: none;
+}
 
 @media (max-width: 768px) {
   .number {
@@ -206,6 +234,12 @@ onBeforeUnmount(() => {
   }
   .colon {
     font-size: 2.5rem;
+  }
+  .desktop-images {
+    display: none;
+  }
+  .mobile-images {
+    display: flex;
   }
 }
 
