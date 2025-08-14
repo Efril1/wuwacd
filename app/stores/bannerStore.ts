@@ -19,6 +19,8 @@ interface Banner {
   bannerChar: string
   infoImageDesktop: string
   infoImageMobile: string
+  infoImageMobile1: string
+  infoImageMobile2: string
   backgroundVideo: string
   colorChoice: ColorChoice
   characterInfo: CharacterInfo
@@ -31,6 +33,8 @@ export const useBannerStore = defineStore('banner', () => {
       bannerChar: "AUGUSTA",
       infoImageDesktop: "/images/augustacard.webp",
       infoImageMobile: "/images/augustamobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
       backgroundVideo: "/images/augustavid.webm",
       colorChoice: "error",
       characterInfo: {
@@ -46,6 +50,8 @@ export const useBannerStore = defineStore('banner', () => {
       bannerChar: "IUNO",
       infoImageDesktop: "/images/Iuno_Card.webp",
       infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
       backgroundVideo: "/images/iunovid.mp4",
       colorChoice:"secondary",
       characterInfo: {

@@ -13,10 +13,9 @@ useHead({
 </script>
 <template>
   <main class="relative h-screen">
-    <div class="h-full w-full overflow-y-auto">
+    <div class="h-full w-full overflow-auto">
       <slot />
-
-      </div>
+    </div>
 
     <div class="relative flex mx-auto justify-center font-medium">
       <ULink active="false">Made by&nbsp;</ULink>
