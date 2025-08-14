@@ -97,8 +97,8 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .timer-display {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  font-family: "Genshin";
+
   margin-top: -100px;
 }
 

@@ -23,90 +23,47 @@ const isFirstPage = computed(() => route.name === "first");
     <div class="absolute inset-0 bg-black/40"></div>
   </div>
 
-  <div class="flex relative z-10">
-    <div class="flex-1 flex flex-col">
-      <div class="mx-auto">
-        <div class="relative inline-block hover:[&>h2:first-child]:opacity-70">
-          <h2
-            class="chartext blurred-text absolute inset-0 blur-xl opacity-0 hover:opacity-80 scale-160 transition-all duration-300 pointer-events-none"
-          >
-            {{ banner?.bannerChar }}
-          </h2>
+  <div class="relative z-10 flex-1 flex flex-col">
+    <div
+      class="relative inline-block hover:[&>h2:first-child]:opacity-70 mx-auto"
+    >
+      <h2
+        class="chartext blurred-text absolute inset-0 blur-xl opacity-0 hover:opacity-80 scale-160 transition-all duration-300 pointer-events-none"
+      >
+        {{ banner?.bannerChar }}
+      </h2>
 
-          <NuxtLink :to="isFirstPage ? '/second' : '/first'">
-            <h2 class="chartext relative">
-              {{ banner?.bannerChar }}
-            </h2>
-          </NuxtLink>
-        </div>
-      </div>
+      <NuxtLink :to="isFirstPage ? '/second' : '/first'">
+        <h2 class="chartext relative">
+          {{ banner?.bannerChar }}
+        </h2>
+      </NuxtLink>
+    </div>
 
-      <div class="flex-1 place-items-center pt-25 p-4">
-        <CountDownDisplay :bannerIndex="bannerIndex">
-          <template #finished>
-            <slot name="finished"></slot>
-          </template>
-        </CountDownDisplay>
-      </div>
+    <CountDownDisplay
+      class="flex-1 place-items-center pt-25 p-4"
+      :bannerIndex="bannerIndex"
+    >
+      <template #finished>
+        <slot name="finished"></slot>
+      </template>
+    </CountDownDisplay>
 
-      <div v-if="banner" class="w-full max-w-2xl mx-auto scale-90">
-        <div
-          class="desktop-images absolute flex flex-col gap-2 top-6 -left-40 w-35 z-20"
-        >
-          <div class="h-17 overflow-hidden rounded-2xl">
-            <NuxtLink to="/first">
-              <img
-                :src="banner.infoImageMobile1"
-                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-              />
-            </NuxtLink>
-          </div>
-          <div class="h-17 overflow-hidden rounded-2xl">
-            <NuxtLink to="/second">
-              <img
-                :src="banner.infoImageMobile2"
-                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-              />
-            </NuxtLink>
-          </div>
-        </div>
+    <div v-if="banner" class="w-full max-w-2xl mx-auto scale-90">
 
-        <!-- Mobile -->
-        <div
-          class="mobile-images flex flex-row justify-center items-center mx-auto gap-4 w-full max-w-2xl"
-        >
-          <div class="h-17 overflow-hidden rounded-2xl">
-            <NuxtLink to="/first">
-              <img
-                :src="banner.infoImageMobile1"
-                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-              />
-            </NuxtLink>
-          </div>
-          <div class="h-17 overflow-hidden rounded-2xl">
-            <NuxtLink to="/second">
-              <img
-                :src="banner.infoImageMobile2"
-                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-              />
-            </NuxtLink>
-          </div>
-        </div>
+      <SelectionList :bannerIndex="bannerIndex" />
 
-        <FadeContent
-          :blur="true"
-          :duration="500"
-          :delay="200"
-          :threshold="0.1"
-          :initial-opacity="0"
-          easing="ease-out"
-          class-name="my-fade-content"
-        >
-          <div class="content-to-fade">
-            <CharacterInfo :bannerIndex="bannerIndex" />
-          </div>
-        </FadeContent>
-      </div>
+      <FadeContent
+        :blur="true"
+        :duration="500"
+        :delay="200"
+        :threshold="0.1"
+        :initial-opacity="0"
+        easing="ease-out"
+        class-name="my-fade-content"
+      >
+        <CharacterInfo :bannerIndex="bannerIndex" />
+      </FadeContent>
     </div>
   </div>
 </template>
@@ -120,36 +77,10 @@ const isFirstPage = computed(() => route.name === "first");
   font-display: swap;
 }
 
-.timer-display {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-}
-
 .number {
   font-size: 5rem;
   font-weight: 800;
   line-height: 1;
-}
-.desktop-images {
-  display: flex;
-}
-.mobile-images {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .number {
-    font-size: 3rem;
-  }
-  .colon {
-    font-size: 2.5rem;
-  }
-  .desktop-images {
-    display: none;
-  }
-  .mobile-images {
-    display: flex;
-  }
 }
 
 .chartext {
