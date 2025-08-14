@@ -1,5 +1,4 @@
 <script setup>
-import { ULink } from '#components';
 
 useHead({
   script: [

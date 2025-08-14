@@ -2,20 +2,45 @@
 import NumberFlow from "@number-flow/vue";
 
 const props = defineProps({
-  timeLeft: {
-    type: Object as PropType<{
-      days: number;
-      hours: number;
-      minutes: number;
-      seconds: number;
-    } | null>,
-    required: true,
-  },
-  colorChoice: {
-    type: String,
-    default: "primary",
+  bannerIndex: {
+    type: Number,
+    default: 0,
   },
 });
+
+const bannerStore = useBannerStore();
+const banner = computed(() => bannerStore.getBanner(props.bannerIndex));
+
+const now = ref(new Date());
+const timer = ref<NodeJS.Timeout | null>(null);
+
+const timeLeft = computed(() => {
+  if (!banner.value?.targetTime) return null;
+
+  const diff = banner.value.targetTime.getTime() - now.value.getTime();
+  if (diff <= 0) return null;
+
+  return {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
+    seconds: Math.floor((diff / 1000) % 60),
+  };
+});
+
+const updateTime = () => {
+  now.value = new Date();
+};
+
+onMounted(() => {
+  updateTime();
+  timer.value = setInterval(updateTime, 1000);
+});
+
+onBeforeUnmount(() => {
+  if (timer.value) clearInterval(timer.value);
+});
+
 </script>
 
 <template>

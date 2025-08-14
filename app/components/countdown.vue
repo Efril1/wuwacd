@@ -1,16 +1,5 @@
 <script setup lang="ts">
-import { NuxtLink } from "#components";
 import FadeContent from "../../src/blocks/Animations/FadeContent/FadeContent.vue";
-import CountDownDisplay from "./CountDownDisplay.vue";
-
-type ColorChoice =
-  | "primary"
-  | "info"
-  | "secondary"
-  | "success"
-  | "warning"
-  | "error"
-  | "neutral";
 
 const props = defineProps({
   bannerIndex: {
@@ -22,40 +11,8 @@ const props = defineProps({
 const bannerStore = useBannerStore();
 const banner = computed(() => bannerStore.getBanner(props.bannerIndex));
 
-const isHovered = ref(false);
-
-const now = ref(new Date());
-const timer = ref<NodeJS.Timeout | null>(null);
 const route = useRoute();
 const isFirstPage = computed(() => route.name === "first");
-
-const timeLeft = computed(() => {
-  if (!banner.value?.targetTime) return null;
-
-  const diff = banner.value.targetTime.getTime() - now.value.getTime();
-
-  if (diff <= 0) return null;
-
-  return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-    seconds: Math.floor((diff / 1000) % 60),
-  };
-});
-
-const updateTime = () => {
-  now.value = new Date();
-};
-
-onMounted(() => {
-  updateTime();
-  timer.value = setInterval(updateTime, 1000);
-});
-
-onBeforeUnmount(() => {
-  if (timer.value) clearInterval(timer.value);
-});
 </script>
 
 <template>
@@ -85,10 +42,7 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="flex-1 place-items-center pt-25 p-4">
-        <CountDownDisplay
-          :timeLeft="timeLeft"
-          :colorChoice="banner?.colorChoice || 'primary'"
-        >
+        <CountDownDisplay :bannerIndex="bannerIndex">
           <template #finished>
             <slot name="finished"></slot>
           </template>
@@ -96,44 +50,48 @@ onBeforeUnmount(() => {
       </div>
 
       <div v-if="banner" class="w-full max-w-2xl mx-auto scale-90">
-        <div class="desktop-images absolute flex flex-col gap-2 top-6 -left-40 w-35 z-20">
-      <div class="h-17 overflow-hidden rounded-2xl">
-        <NuxtLink to="/first">
-          <img
-            :src="banner.infoImageMobile1"
-            class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-          />
-        </NuxtLink>
-      </div>
-      <div class="h-17 overflow-hidden rounded-2xl">
-        <NuxtLink to="/second">
-          <img
-            :src="banner.infoImageMobile2"
-            class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-          />
-        </NuxtLink>
-      </div>
-    </div>
+        <div
+          class="desktop-images absolute flex flex-col gap-2 top-6 -left-40 w-35 z-20"
+        >
+          <div class="h-17 overflow-hidden rounded-2xl">
+            <NuxtLink to="/first">
+              <img
+                :src="banner.infoImageMobile1"
+                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
+              />
+            </NuxtLink>
+          </div>
+          <div class="h-17 overflow-hidden rounded-2xl">
+            <NuxtLink to="/second">
+              <img
+                :src="banner.infoImageMobile2"
+                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
+              />
+            </NuxtLink>
+          </div>
+        </div>
 
-    <!-- Mobile -->
-    <div class="mobile-images flex flex-row justify-center items-center mx-auto gap-4 w-full max-w-2xl">
-      <div class="h-17 overflow-hidden rounded-2xl">
-        <NuxtLink to="/first">
-          <img
-            :src="banner.infoImageMobile1"
-            class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-          />
-        </NuxtLink>
-      </div>
-      <div class="h-17 overflow-hidden rounded-2xl">
-        <NuxtLink to="/second">
-          <img
-            :src="banner.infoImageMobile2"
-            class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
-          />
-        </NuxtLink>
-      </div>
-    </div>
+        <!-- Mobile -->
+        <div
+          class="mobile-images flex flex-row justify-center items-center mx-auto gap-4 w-full max-w-2xl"
+        >
+          <div class="h-17 overflow-hidden rounded-2xl">
+            <NuxtLink to="/first">
+              <img
+                :src="banner.infoImageMobile1"
+                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
+              />
+            </NuxtLink>
+          </div>
+          <div class="h-17 overflow-hidden rounded-2xl">
+            <NuxtLink to="/second">
+              <img
+                :src="banner.infoImageMobile2"
+                class="w-full h-full object-cover object-right-top transition-transform duration-300 hover:scale-150 origin-right"
+              />
+            </NuxtLink>
+          </div>
+        </div>
 
         <FadeContent
           :blur="true"
@@ -145,63 +103,14 @@ onBeforeUnmount(() => {
           class-name="my-fade-content"
         >
           <div class="content-to-fade">
-            <UCard class="overflow-hidden bg-black/20">
-              <div class="flex flex-col md:flex-row">
-                <!-- Left -->
-                <div class="w-full md:w-1/2 flex items-center justify-center">
-                  <picture
-                    v-if="banner.infoImageDesktop || banner.infoImageMobile"
-                  >
-                    <source
-                      media="(max-width: 767px)"
-                      :srcset="banner.infoImageMobile"
-                      class="object-top-right w-full h-64 md:h-full"
-
-                    />
-                    <img
-                      :src="banner.infoImageDesktop"
-                      alt="Character Information"
-                      class="object-cover w-full h-64 md:h-full"
-                    />
-                  </picture>
-                  <p v-else class="text-center p-4">No image provided</p>
-                </div>
-
-                <!-- Right -->
-                <div class="w-full md:w-1/2 p-6 flex flex-col justify-center">
-                  <div class="space-y-4 text-center md:text-left">
-                    <h3 class="text-2xl font-bold">Character Info</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                      <div>
-                        <p class="text-sm text-gray-500">Name</p>
-                        <p class="font-medium">
-                          {{ banner.characterInfo.name }}
-                        </p>
-                      </div>
-                      <div>
-                        <p class="text-sm text-gray-500">Attribute</p>
-                        <p class="font-medium">
-                          {{ banner.characterInfo.element }}
-                        </p>
-                      </div>
-                      <div>
-                        <p class="text-sm text-gray-500">Weapon</p>
-                        <p class="font-medium">
-                          {{ banner.characterInfo.weapon }}
-                        </p>
-                      </div>
-                    </div>
-                    <p class="font-medium">{{ banner.characterInfo.about }}</p>
-                  </div>
-                </div>
-              </div>
-            </UCard>
+            <CharacterInfo :bannerIndex="bannerIndex" />
           </div>
         </FadeContent>
       </div>
     </div>
   </div>
 </template>
+
 <style scoped>
 @font-face {
   font-family: "Genshin";
