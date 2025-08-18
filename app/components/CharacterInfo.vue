@@ -15,20 +15,20 @@ const banner = computed(() => bannerStore.getBanner(props.bannerIndex));
     <div class="flex flex-col md:flex-row">
       <!-- Left -->
       <div class="w-full md:w-1/2 flex items-center justify-center">
-        <picture
-          v-if="banner?.infoImageDesktop || banner?.infoImageMobile"
-        >
-          <source
-            media="(max-width: 767px)"
-            :srcset="banner.infoImageMobile"
-            class="object-top-right w-full h-64 md:h-full"
-          />
-          <img
-            :src="banner.infoImageDesktop"
-            alt="Character Information"
-            class="object-cover w-full h-64 md:h-full"
-          />
-        </picture>
+        <picture v-if="banner?.infoImageDesktop || banner?.infoImageMobile">
+  <source
+    media="(max-width: 767px)"
+    :srcset="banner.infoImageMobile"
+    class="w-full h-64 md:h-full object-cover object-right"
+  />
+  <img
+    :src="banner.infoImageDesktop"
+    alt="Character Information"
+    class="w-full h-64 md:h-full object-cover rounded-2xl"
+    style="object-position: 75% 80%;"
+  />
+</picture>
+
         <p v-else class="text-center p-4">No image provided</p>
       </div>
 
