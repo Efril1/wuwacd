@@ -41,15 +41,15 @@ const banner = computed(() => bannerStore.getBanner(props.bannerIndex));
         <h3 class="text-2xl font-bold">Character Info</h3>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <p class="text-sm text-gray-500">Name</p>
+            <p class="text-sm text-gray-400">Name</p>
             <p class="font-medium">{{ banner?.characterInfo.name }}</p>
           </div>
           <div>
-            <p class="text-sm text-gray-500">Attribute</p>
+            <p class="text-sm text-gray-400">Attribute</p>
             <p class="font-medium">{{ banner?.characterInfo.element }}</p>
           </div>
           <div>
-            <p class="text-sm text-gray-500">Weapon</p>
+            <p class="text-sm text-gray-400">Weapon</p>
             <p class="font-medium">{{ banner?.characterInfo.weapon }}</p>
           </div>
           <p class="font-medium col-span-2">{{ banner?.characterInfo.about }}</p>
