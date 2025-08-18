@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import NumberFlow from "@number-flow/vue";
 
 const props = defineProps({
@@ -11,29 +12,30 @@ const props = defineProps({
 const bannerStore = useBannerStore();
 const banner = computed(() => bannerStore.getBanner(props.bannerIndex));
 
-const now = ref(new Date());
+const days = ref(0);
+const hours = ref(0);
+const minutes = ref(0);
+const seconds = ref(0);
+
 const timer = ref<NodeJS.Timeout | null>(null);
 
-const scale = ref(1);
 const containerRef = ref<HTMLElement | null>(null);
+const scale = ref(1);
 const baseWidth = 500;
 
-const timeLeft = computed(() => {
-  if (!banner.value?.targetTime) return null;
-
-  const diff = banner.value.targetTime.getTime() - now.value.getTime();
-  if (diff <= 0) return null;
-
-  return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-    seconds: Math.floor((diff / 1000) % 60),
-  };
-});
-
 const updateTime = () => {
-  now.value = new Date();
+  if (!banner.value?.targetTime) return;
+
+  const diff = banner.value.targetTime.getTime() - new Date().getTime();
+  if (diff <= 0) {
+    days.value = hours.value = minutes.value = seconds.value = 0;
+    return;
+  }
+
+  days.value = Math.floor(diff / (1000 * 60 * 60 * 24));
+  hours.value = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  minutes.value = Math.floor((diff / (1000 * 60)) % 60);
+  seconds.value = Math.floor((diff / 1000) % 60);
 };
 
 onMounted(() => {
@@ -59,11 +61,11 @@ onBeforeUnmount(() => {
 <template>
   <div ref="containerRef" class="scale-container">
     <div class="timer-wrapper" :style="{ transform: `scale(${scale})` }">
-      <div v-if="timeLeft" class="timer-display">
+      <div class="timer-display">
         <div class="flex flex-nowrap justify-center gap-x-6">
           <div class="flex flex-col items-center">
             <NumberFlow
-              :value="timeLeft.days"
+              :value="days"
               class="text-6xl font-extrabold"
               :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
             />
@@ -72,7 +74,7 @@ onBeforeUnmount(() => {
           <span class="colon text-6xl font-extrabold pt-5">:</span>
           <div class="flex flex-col items-center">
             <NumberFlow
-              :value="timeLeft.hours"
+              :value="hours"
               class="text-6xl font-extrabold"
               :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
             />
@@ -81,7 +83,7 @@ onBeforeUnmount(() => {
           <span class="colon text-6xl font-extrabold pt-5">:</span>
           <div class="flex flex-col items-center">
             <NumberFlow
-              :value="timeLeft.minutes"
+              :value="minutes"
               class="text-6xl font-extrabold"
               :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
             />
@@ -90,7 +92,7 @@ onBeforeUnmount(() => {
           <span class="colon text-6xl font-extrabold pt-5">:</span>
           <div class="flex flex-col items-center">
             <NumberFlow
-              :value="timeLeft.seconds"
+              :value="seconds"
               class="text-6xl font-extrabold"
               :format="{ notation: 'standard', minimumIntegerDigits: 2 }"
             />
@@ -98,7 +100,7 @@ onBeforeUnmount(() => {
           </div>
         </div>
       </div>
-      <slot v-else name="finished"></slot>
+      <slot name="finished"></slot>
     </div>
   </div>
 </template>
