@@ -63,7 +63,7 @@ export const useBannerStore = defineStore("banner", () => {
       },
     },
     {
-      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      targetTime: new Date(Date.UTC(2025, 7, 10, 3, 0, 0)),
       bannerChar: "IUNO",
       infoImageDesktop: "/images/Iuno_Card.webp",
       infoImageMobile: "/images/iuno-mobile.webp",
