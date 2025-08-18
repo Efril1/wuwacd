@@ -14,16 +14,18 @@ interface CharacterInfo {
   about: string;
 }
 
+// Updated Banner type to support dynamic keys like infoImageMobile1, infoImageMobile2...
 interface Banner {
   targetTime: Date;
   bannerChar: string;
   infoImageDesktop: string;
   infoImageMobile: string;
-  infoImageMobile1: string;
-  infoImageMobile2: string;
   backgroundVideo: string;
   colorChoice: ColorChoice;
   characterInfo: CharacterInfo;
+
+  // Index signature for dynamic keys (like infoImageMobile1, infoImageMobile2, etc.)
+  [key: `infoImageMobile${number}`]: string;
 }
 
 export const useBannerStore = defineStore("banner", () => {
@@ -44,7 +46,134 @@ export const useBannerStore = defineStore("banner", () => {
         about: '"All the sun touches is ours to fight for."—Augusta',
       },
     },
-
+    {
+      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      bannerChar: "IUNO",
+      infoImageDesktop: "/images/Iuno_Card.webp",
+      infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
+      backgroundVideo: "/images/iunovid.mp4",
+      colorChoice: "secondary",
+      characterInfo: {
+        name: "Iuno",
+        element: "Aero",
+        weapon: "Gauntlet",
+        about: '"While the moon cycles, I remain the anchor."—Iuno',
+      },
+    },
+    {
+      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      bannerChar: "IUNO",
+      infoImageDesktop: "/images/Iuno_Card.webp",
+      infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
+      backgroundVideo: "/images/iunovid.mp4",
+      colorChoice: "secondary",
+      characterInfo: {
+        name: "Iuno",
+        element: "Aero",
+        weapon: "Gauntlet",
+        about: '"While the moon cycles, I remain the anchor."—Iuno',
+      },
+    },
+    {
+      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      bannerChar: "IUNO",
+      infoImageDesktop: "/images/Iuno_Card.webp",
+      infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
+      backgroundVideo: "/images/iunovid.mp4",
+      colorChoice: "secondary",
+      characterInfo: {
+        name: "Iuno",
+        element: "Aero",
+        weapon: "Gauntlet",
+        about: '"While the moon cycles, I remain the anchor."—Iuno',
+      },
+    },
+    {
+      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      bannerChar: "IUNO",
+      infoImageDesktop: "/images/Iuno_Card.webp",
+      infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
+      backgroundVideo: "/images/iunovid.mp4",
+      colorChoice: "secondary",
+      characterInfo: {
+        name: "Iuno",
+        element: "Aero",
+        weapon: "Gauntlet",
+        about: '"While the moon cycles, I remain the anchor."—Iuno',
+      },
+    },
+    {
+      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      bannerChar: "IUNO",
+      infoImageDesktop: "/images/Iuno_Card.webp",
+      infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
+      backgroundVideo: "/images/iunovid.mp4",
+      colorChoice: "secondary",
+      characterInfo: {
+        name: "Iuno",
+        element: "Aero",
+        weapon: "Gauntlet",
+        about: '"While the moon cycles, I remain the anchor."—Iuno',
+      },
+    },
+    {
+      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      bannerChar: "IUNO",
+      infoImageDesktop: "/images/Iuno_Card.webp",
+      infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
+      backgroundVideo: "/images/iunovid.mp4",
+      colorChoice: "secondary",
+      characterInfo: {
+        name: "Iuno",
+        element: "Aero",
+        weapon: "Gauntlet",
+        about: '"While the moon cycles, I remain the anchor."—Iuno',
+      },
+    },
+    {
+      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      bannerChar: "IUNO",
+      infoImageDesktop: "/images/Iuno_Card.webp",
+      infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
+      backgroundVideo: "/images/iunovid.mp4",
+      colorChoice: "secondary",
+      characterInfo: {
+        name: "Iuno",
+        element: "Aero",
+        weapon: "Gauntlet",
+        about: '"While the moon cycles, I remain the anchor."—Iuno',
+      },
+    },
+    {
+      targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
+      bannerChar: "IUNO",
+      infoImageDesktop: "/images/Iuno_Card.webp",
+      infoImageMobile: "/images/iuno-mobile.webp",
+      infoImageMobile1: "/images/augustamobile.webp",
+      infoImageMobile2: "/images/iuno-mobile.webp",
+      backgroundVideo: "/images/iunovid.mp4",
+      colorChoice: "secondary",
+      characterInfo: {
+        name: "Iuno",
+        element: "Aero",
+        weapon: "Gauntlet",
+        about: '"While the moon cycles, I remain the anchor."—Iuno',
+      },
+    },
     {
       targetTime: new Date(Date.UTC(2025, 8, 17, 3, 0, 0)),
       bannerChar: "IUNO",
@@ -67,8 +196,11 @@ export const useBannerStore = defineStore("banner", () => {
     return banners.value[index] || banners.value[0];
   };
 
+  const bannersCount = computed(() => banners.value.length);
+
   return {
     banners,
     getBanner,
+    bannersCount,
   };
 });

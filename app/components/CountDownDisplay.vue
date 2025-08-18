@@ -41,7 +41,7 @@ onMounted(() => {
   timer.value = setInterval(updateTime, 1000);
 
   if (containerRef.value) {
-    const ro = new ResizeObserver(entries => {
+    const ro = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const width = entry.contentRect.width;
         scale.value = Math.min(1, width / baseWidth);
