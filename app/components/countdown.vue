@@ -32,12 +32,9 @@ const isFirstPage = computed(() => route.name === "first");
       >
         {{ banner?.bannerChar }}
       </h2>
-
-      <NuxtLink :to="isFirstPage ? '/second' : '/first'">
-        <h2 class="chartext relative">
+        <h2 class="chartext relative pointer-events-none">
           {{ banner?.bannerChar }}
         </h2>
-      </NuxtLink>
     </div>
 
     <CountDownDisplay
