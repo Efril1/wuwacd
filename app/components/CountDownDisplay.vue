@@ -100,7 +100,6 @@ onBeforeUnmount(() => {
           </div>
         </div>
       </div>
-      <slot name="finished"></slot>
     </div>
   </div>
 </template>
