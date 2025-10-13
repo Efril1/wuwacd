@@ -49,7 +49,7 @@ export const useBannerStore = defineStore("banner", () => {
    
     {
       targetTime: new Date(Date.UTC(2025, 10, 19, 3, 0, 0)),
-      bannerChar: "Buling",
+      bannerChar: "CHISA",
       infoImageDesktop: "/images/chisacard.webp",
       infoImageMobile: "/images/chisawp.png",
       infoImageMobile1: "/images/qiyuanwp.png",
