@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import FadeContent from "../../src/blocks/Animations/FadeContent/FadeContent.vue";
-import { ref } from "vue";
 
 const props = defineProps({
   bannerIndex: {
@@ -8,6 +7,7 @@ const props = defineProps({
     default: 0,
   },
 });
+
 
 const bannerStore = useBannerStore();
 const banner = computed(() => bannerStore.getBanner(props.bannerIndex));
@@ -17,16 +17,34 @@ const isFirstPage = computed(() => route.name === "first");
 
 const videoLoaded = ref(false);
 
+const isVideo = computed(() => {
+  if (!banner.value?.backgroundVideo) return false;
+  return /\.(mp4|webm|ogg)$/i.test(banner.value.backgroundVideo);
+});
+
 function handleVideoLoaded() {
   videoLoaded.value = true;
 }
+
+onMounted(() => {
+  if (!isVideo.value && banner.value?.backgroundVideo) {
+    const img = new Image()
+    img.src = banner.value.backgroundVideo
+    if (img.complete) {
+      handleVideoLoaded()
+    } else {
+      img.onload = handleVideoLoaded
+    }
+  }
+})
+
 </script>
 
 <template>
   <div v-if="banner?.backgroundVideo" class="fixed inset-0 z-0 flex items-center justify-center bg-black">
     <div v-if="!videoLoaded" class="spinner"></div>
-
     <video
+      v-if="isVideo"
       v-show="videoLoaded"
       autoplay
       muted
@@ -38,10 +56,18 @@ function handleVideoLoaded() {
       <source :src="banner.backgroundVideo" type="video/mp4" />
     </video>
 
+    <img
+      v-else
+      v-show="videoLoaded"
+      :src="banner.backgroundVideo"
+      class="w-full h-full object-cover"
+      @load="handleVideoLoaded"
+      alt="Background"
+    />
+
     <div v-show="videoLoaded" class="absolute inset-0 bg-black/40"></div>
   </div>
 
-  <!-- Content -->
   <div class="relative z-10 flex-1 flex flex-col">
     <div class="relative inline-block hover:[&>h2:first-child]:opacity-70 mx-auto">
       <h2

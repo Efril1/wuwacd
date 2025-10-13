@@ -17,7 +17,7 @@ useHead({
     </div>
 
     <div class="relative flex mx-auto justify-center font-medium">
-      <ULink active="false">Made by&nbsp;</ULink>
+      <ULink>Made by&nbsp;</ULink>
     <ULink
       icon="i-lucide-github"
       variant="link"
