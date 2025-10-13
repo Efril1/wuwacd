@@ -36,7 +36,7 @@ export const useBannerStore = defineStore("banner", () => {
       infoImageDesktop: "/images/qiyuancard.png",
       infoImageMobile: "/images/qiyuanwp.png",
       infoImageMobile1: "/images/qiyuanwp.png",
-      infoImageMobile2: "/images/qiyuancard.png",
+      infoImageMobile2: "/images/chisawp.png",
       backgroundVideo: "/images/qiyuanwp.png",
       colorChoice: "info",
       characterInfo: {
